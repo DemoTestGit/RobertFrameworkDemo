@@ -8,11 +8,9 @@ ${BrowserType}
 ${Username}
 ${Password}
 ${status}
-${errorMsg1}
-
+${errorMsg}
 
 *** Keywords ***
-
 LaunchBrowser
    [Arguments]  ${LoginUrl}  ${BrowserType}
    open browser  ${LoginUrl}  ${BrowserType}
@@ -27,21 +25,14 @@ password
      element should be visible  id:txtPassword
      element should be enabled  id:txtPassword
     input password  ${PwdId}  ${Password}
-
 LoginButton
     click button  ${LoginBtn}
 
 Validation
-   ${message} =  get element count  xpath://*[@id="spanMessage"]
-      run keyword if  ${message} > 0  Test Keyword2  ELSE  Test Keyword1
+  #page should contain button  //*[@id="Subscriber_link"]
+    page should contain element  //*[@id="menu_dashboard_index"]/b
+Message
+  page should contain  Invalid credentials
 
-Test Keyword1
-
-    log to console  Valid Credentials
-    capture page screenshot
-
-
-Test Keyword2
-    log to console  Incorrect Credentials
-    capture page screenshot
-    close browser
+CloseBrowser
+    close all browsers
