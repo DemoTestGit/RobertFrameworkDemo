@@ -8,8 +8,7 @@ ${BrowserType}
 ${Username}
 ${Password}
 ${status}
-${errorMsg1}
-
+${errorMsg}
 
 *** Keywords ***
 
@@ -32,16 +31,8 @@ LoginButton
     click button  ${LoginBtn}
 
 Validation
-   ${message} =  get element count  xpath://*[@id="spanMessage"]
-      run keyword if  ${message} > 0  Test Keyword2  ELSE  Test Keyword1
+  page should contain button  //*[@id="Subscriber_link"]
 
-Test Keyword1
+Message
+  page should contain  //*[@id="spanMessage"]
 
-    log to console  Valid Credentials
-    capture page screenshot
-
-
-Test Keyword2
-    log to console  Incorrect Credentials
-    capture page screenshot
-    close browser
