@@ -34,7 +34,7 @@ Validation
     #page should contain element  //*[@id="menu_dashboard_index"]/b
     #Screenshot ${TestCase_Discription}
     page should contain element  //b[text()='Dashboard']
-    Screenshot ${TestCase_Discription}
+    Screenshot  ${TestCase_Discription}
 
 Message
   page should contain  Invalid credentials
