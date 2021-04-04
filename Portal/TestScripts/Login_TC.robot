@@ -22,14 +22,14 @@ Login
 *** Keywords ***
 
 Login_TC1
-       [Arguments]  ${BrowserType}  ${LoginUrl}  ${Username}  ${Password}  ${status}  ${error}
+       [Arguments]  ${BrowserType}  ${LoginUrl}  ${Username}  ${Password}  ${status}  ${error}  ${TestCase_Discription}
        ${Login}=  RUN KEYWORD IF   '${status}'=='No'  NoTCSelected
         ...  ELSE IF  '${status}'=='Yes' and '${error}'=='InvalidCredentials'  InvalidLogin    ${LoginUrl}  ${BrowserType}  ${Username}  ${Password}
-        ...  ELSE IF  '${status}'=='Yes' and '${error}'=='Valid'  ValidLogin     ${LoginUrl}  ${BrowserType}  ${Username}  ${Password}
+        ...  ELSE IF  '${status}'=='Yes' and '${error}'=='Valid'  ValidLogin     ${LoginUrl}  ${BrowserType}  ${Username}  ${Password}  ${TestCase_Discription}
 
 
 ValidLogin
-       [Arguments]  ${LoginUrl}  ${BrowserType}  ${Username}  ${Password}
+       [Arguments]  ${LoginUrl}  ${BrowserType}  ${Username}  ${Password}   ${TestCase_Discription}
        log to console  Valid TestCase
        LaunchBrowser  ${LoginUrl}  ${BrowserType}
        username  ${Username}
@@ -37,7 +37,7 @@ ValidLogin
        sleep   2s
        LoginButton
        sleep   2s
-       Validation
+       Validation   ${TestCase_Discription}
        close browser
 
 

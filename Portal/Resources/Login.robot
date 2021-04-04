@@ -29,10 +29,28 @@ LoginButton
     click button  ${LoginBtn}
 
 Validation
-  #page should contain button  //*[@id="Subscriber_link"]
-    page should contain element  //*[@id="menu_dashboard_index"]/b
+    [Arguments]  ${TestCase_Discription}
+    #page should contain button  //*[@id="Subscriber_link"]
+    #page should contain element  //*[@id="menu_dashboard_index"]/b
+    #Screenshot ${TestCase_Discription}
+    page should contain element  //b[text()='Dashboard']
+    Screenshot ${TestCase_Discription}
+
 Message
   page should contain  Invalid credentials
 
 CloseBrowser
     close all browsers
+
+Get DateTime1
+  ${now}    Evaluate  '{dt:%A}, {dt:%B}, {dt.day}, {dt.year}, {dt:%H}, {dt:%M}, {dt:%S}'.format(dt=datetime.datetime.now())    modules=datetime
+  log to console  ${now}
+  [Return]   ${now}
+
+Screenshot
+  [Arguments]  ${TestCase_Discription}
+  Set Global Variable  ${Path}  .//Portal//Snapshot/
+  Set Screenshot Directory  ${Path}
+  ${datetime}=  Get DateTime1
+  capture page screenshot  ${TestCase_Discription}${datetime}.png
+  Log To Console  ${\n}Screenshot
