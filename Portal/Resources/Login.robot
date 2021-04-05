@@ -33,8 +33,9 @@ Validation
     #page should contain button  //*[@id="Subscriber_link"]
     #page should contain element  //*[@id="menu_dashboard_index"]/b
     #Screenshot ${TestCase_Discription}
-    page should contain element  //b[text()='Dashboard']
     Screenshot  ${TestCase_Discription}
+    page should contain element  //b[text()='Dashboard']
+
 
 Message
   page should contain  Invalid credentials
