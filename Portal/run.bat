@@ -1,2 +1,2 @@
-cd C:\Users\kavib\Pythonpro\RobertFrameworkDemo1
+cd ..\..\RobertFrameworkDemo
 robot -d Reports Portal\TestScripts\*.robot
