@@ -8,11 +8,9 @@ ${BrowserType}
 ${Username}
 ${Password}
 ${status}
-${errorMsg1}
-
+${errorMsg}
 
 *** Keywords ***
-
 LaunchBrowser
    [Arguments]  ${LoginUrl}  ${BrowserType}
    open browser  ${LoginUrl}  ${BrowserType}
@@ -27,21 +25,33 @@ password
      element should be visible  id:txtPassword
      element should be enabled  id:txtPassword
     input password  ${PwdId}  ${Password}
-
 LoginButton
     click button  ${LoginBtn}
 
 Validation
-   ${message} =  get element count  xpath://*[@id="spanMessage"]
-      run keyword if  ${message} > 0  Test Keyword2  ELSE  Test Keyword1
+    [Arguments]  ${TestCase_Discription}
+    #page should contain button  //*[@id="Subscriber_link"]
+    #page should contain element  //*[@id="menu_dashboard_index"]/b
+    #Screenshot ${TestCase_Discription}
+    Screenshot  ${TestCase_Discription}
+    page should contain element  //b[text()='Dashboard']
 
-Test Keyword1
 
-    log to console  Valid Credentials
-    capture page screenshot
+Message
+  page should contain  Invalid credentials
 
+CloseBrowser
+    close all browsers
 
-Test Keyword2
-    log to console  Incorrect Credentials
-    capture page screenshot
-    close browser
+Get DateTime1
+  ${now}    Evaluate  '{dt:%A}, {dt:%B}, {dt.day}, {dt.year}, {dt:%H}, {dt:%M}, {dt:%S}'.format(dt=datetime.datetime.now())    modules=datetime
+  log to console  ${now}
+  [Return]   ${now}
+
+Screenshot
+  [Arguments]  ${TestCase_Discription}
+  Set Global Variable  ${Path}  .//Portal//Snapshot/
+  Set Screenshot Directory  ${Path}
+  ${datetime}=  Get DateTime1
+  capture page screenshot  ${TestCase_Discription}${datetime}.png
+  Log To Console  ${\n}Screenshot
